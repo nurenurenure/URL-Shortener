@@ -3,6 +3,8 @@ package postgres
 import (
 	"database/sql"
 	"fmt"
+
+	_ "github.com/lib/pq" // ← ЭТОТ ИМПОРТ ОБЯЗАТЕЛЕН!
 )
 
 type Storage struct {
@@ -21,7 +23,7 @@ func New(storagePath string) (*Storage, error) {
 		`
 		CREATE TABLE IF NOT EXISTS url(
 		id SERIAL PRIMARY KEY,
-		alias TEXT NOT NILL UNIQUE,
+		alias TEXT NOT NULL UNIQUE,
 		url TEXT NOT NULL);
 		
 		CREATE INDEX IF NOT EXISTS idx_alias ON url(alias);

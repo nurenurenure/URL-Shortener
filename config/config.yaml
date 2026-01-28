@@ -1,5 +1,5 @@
 env: "local"
-storage_path: "./storage/storage.db"
+dsn: "host=localhost port=5432 user=postgres password=123456 dbname=storage sslmode=disable"
 http_server:
   address: "localhost:8082"
   timeout: 4s
