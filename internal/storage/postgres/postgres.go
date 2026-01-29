@@ -59,3 +59,42 @@ func New(storagePath string) (*Storage, error) {
 	return &Storage{db: db}, nil
 
 }
+
+func (s *Storage) SaveURL(urlToSave string, alias string) error {
+	const op = "storage.postgres.SaveURL"
+	stmt, err := s.db.Prepare("INSERT INTO url(url, alias) VALUES($1, $2)")
+	if err != nil {
+		return fmt.Errorf("%s: %w", op, err)
+	}
+
+	res, err := stmt.Exec(urlToSave, alias)
+	if err != nil {
+		//ДОРАБОТАТЬ !!!!!!!!!
+		return fmt.Errorf("%s: %w", op, err)
+	}
+
+	_ = res
+
+	return nil
+}
+
+func (s *Storage) GetURL(alias string) (string, error) {
+	const op = "storage.postgres.GetURL"
+
+	var url string
+	err := s.db.QueryRow(
+		"SELECT url FROM url WHERE alias=$1",
+		alias).Scan(&url)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return "", fmt.Errorf("%s: alias not found", op)
+		} else {
+			return "", fmt.Errorf("%s: %w", op, err)
+		}
+
+	}
+	return url, nil
+
+}
+
+//func (s *Storage) DeleteURL(alias string) error
