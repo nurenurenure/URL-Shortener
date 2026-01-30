@@ -3,6 +3,7 @@ package main
 import (
 	"URLshort/internal/config"
 	"URLshort/internal/http-server/handlers/url/save"
+	"URLshort/internal/http-server/handlers/urlredirect"
 	"URLshort/internal/lib/logger/sl"
 	"URLshort/internal/storage/postgres"
 	"log/slog"
@@ -41,6 +42,7 @@ func main() {
 	router.Use(middleware.URLFormat)
 
 	router.Post("/url", save.New(log, storage))
+	router.Get("/{alias}", urlredirect.New(log, storage))
 
 	log.Info("starting server", slog.String("address", cfg.Address))
 	srv := &http.Server{
