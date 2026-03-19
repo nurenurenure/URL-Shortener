@@ -25,12 +25,13 @@
 ---
 
 ## Структура проекта
-cmd/url-shortener/        # точка входа
-internal/config/          # конфигурация
-internal/http-server/     # HTTP handlers
-internal/storage/         # работа с БД
-internal/lib/             # утилиты (логгер, генерация, ответы)
-storage/                  # docker-compose
+
+- cmd/url-shortener/        # точка входа
+- internal/config/          # конфигурация
+- internal/http-server/     # HTTP handlers
+- internal/storage/         # работа с БД
+- internal/lib/             # утилиты (логгер, генерация, ответы)
+- storage/                  # docker-compose
 
 ## Запуск проекта
 1. Клонировать репозиторий
@@ -38,8 +39,7 @@ git clone https://github.com/your-username/url-shortener.git
 cd url-shortener
 2. Запуск через Docker
 docker-compose up --build
-Примеры API
-Примеры API
+## Примеры API
 Создание короткой ссылки
 POST /url
 Content-Type: application/json
@@ -51,19 +51,19 @@ Content-Type: application/json
 {
   "short_url": "http://localhost:8080/abc123"
 }
-Конфигурация
+##Конфигурация
 
 Настройки задаются в config/config.yaml:
-порт сервера
-параметры подключения к БД
-прочие настройки
-Архитектура
-Разделение на слои: handlers / storage / config / lib
-Использование goroutines и context для обработки запросов
-Чистая структура проекта с разделением ответственности
+- порт сервера
+- параметры подключения к БД
+- прочие настройки
+## Архитектура
+- Разделение на слои: handlers / storage / config / lib
+- Использование goroutines и context для обработки запросов
+- Чистая структура проекта с разделением ответственности
 
-Дальнейшее развитие
-Добавление авторизации
-Ограничение количества запросов (rate limiting)
-Кэширование (Redis)
-Метрики и мониторинг
+##Дальнейшее развитие
+- Добавление авторизации
+- Ограничение количества запросов (rate limiting)
+- Кэширование (Redis)
+- Метрики и мониторинг
